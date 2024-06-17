@@ -12,7 +12,9 @@ lang.close()
 # Giving title to webpage:
 st.title("Flight Fare predictor :")
 # Adding text box for inputing text form the user:
-input_test = st.text_input("Enter Total Number of stops👇")
+Stops = st.text_input("Enter Total Number of stops👇")
+# Adding text box for inputing text form the user:
+
 
 # now making a submit button:
 button_submit = st.button("Get Price")

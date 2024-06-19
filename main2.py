@@ -16,6 +16,10 @@ model_path = 'flight_rf.pkl'
 with open(model_path, 'rb') as file:
     model = pickle.load(file)
 
+# Load the trained model for Laptop price Pridictor 
+pipe = pickle.load(open('pipe.pkl','rb'))
+df = pickle.load(open('df.pkl','rb'))
+
 # Set up seaborn style
 sns.set()
 def main():
@@ -108,7 +112,7 @@ st.title("Price Predictor :")
 
 # creating a drop box / select box
 
-option = st.selectbox("What would you like to predict 👇",("Select","Car Price 🏎️","Airplane fare price 🛫"))
+option = st.selectbox("What would you like to predict 👇",("Select","Car Price 🏎️","Airplane fare price 🛫","Laptop Price 💻"))
 
 if(option == "Select"):
     st.write("Please select an option from the dropdown menu.")
@@ -131,6 +135,62 @@ elif(option == "Car Price 🏎️"):
         output = lang_model.predict(pd.DataFrame([[input_test ,input_test2,input_test3,input_test4,input_test5]],columns=['name','company','year','kms_driven','fuel_type']))
         end = output[0]
         st.text(end)
-else:
+elif(option == "Airplane fare price 🛫"):
     if __name__ == '__main__':
         main()
+else:
+    # brand
+    company = st.selectbox('Brand',df['Company'].unique())
+    
+    # type of laptop
+    type = st.selectbox('Type',df['TypeName'].unique())
+    
+    # Ram
+    ram = st.selectbox('RAM(in GB)',[2,4,6,8,12,16,24,32,64])
+    
+    # weight
+    weight = st.number_input('Weight of the Laptop')
+    
+    # Touchscreen
+    touchscreen = st.selectbox('Touchscreen',['No','Yes'])
+    
+    # IPS
+    ips = st.selectbox('IPS',['No','Yes'])
+    
+    # screen size
+    screen_size = st.number_input('Screen Size')
+    
+    # resolution
+    resolution = st.selectbox('Screen Resolution',['1920x1080','1366x768','1600x900','3840x2160','3200x1800','2880x1800','2560x1600','2560x1440','2304x1440'])
+    
+    #cpu
+    cpu = st.selectbox('CPU',df['Cpu brand'].unique())
+    
+    hdd = st.selectbox('HDD(in GB)',[0,128,256,512,1024,2048])
+    
+    ssd = st.selectbox('SSD(in GB)',[0,8,128,256,512,1024])
+    
+    gpu = st.selectbox('GPU',df['Gpu brand'].unique())
+    
+    os = st.selectbox('OS',df['os'].unique())
+    
+    if st.button('Predict Price'):
+        # query
+        ppi = None
+        if touchscreen == 'Yes':
+            touchscreen = 1
+        else:
+            touchscreen = 0
+    
+        if ips == 'Yes':
+            ips = 1
+        else:
+            ips = 0
+    
+        X_res = int(resolution.split('x')[0])
+        Y_res = int(resolution.split('x')[1])
+        ppi = ((X_res**2) + (Y_res**2))**0.5/screen_size
+        query = np.array([company,type,ram,weight,touchscreen,ips,ppi,cpu,hdd,ssd,gpu,os])
+    
+        query = query.reshape(1,12)
+        st.title("The predicted price of this configuration is " + str(int(np.exp(pipe.predict(query)[0]))))

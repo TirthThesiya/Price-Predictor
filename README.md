@@ -1,5 +1,22 @@
 # Price Predictor
 
+*In this project we have integrated 3 prediction projects*
+
+**1) Car Price Predictor**
+**2) Airplane Fare Predictor**
+**3) Laptop Price Predictor**
+
+*Techonologies used :*
+1) Python
+2) Streamlit
+3) Linear Regression
+4) Random Forest
+5) Pickel
+6) Jupyter Notebook
+7) Scikit Learn
+8) Pandas
+9) Matplotlib
+10) Seaborn
 
 <img width="1728" alt="Screenshot 2024-06-20 at 1 11 36 PM" src="https://github.com/TirthThesiya/Price-Predictor/assets/143272792/b4faddd4-274d-4e2f-abfa-e7f3306649cf">
 

@@ -18,6 +18,9 @@
 9) Matplotlib
 10) Seaborn
 
+
+**Some Screenshots of the streamlit website :**
+
 <img width="1728" alt="Screenshot 2024-06-20 at 1 11 36 PM" src="https://github.com/TirthThesiya/Price-Predictor/assets/143272792/b4faddd4-274d-4e2f-abfa-e7f3306649cf">
 
 
